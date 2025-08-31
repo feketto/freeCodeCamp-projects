@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+  --primary-color: #E84545;
+  --secondary-color: #903749;
+  --color:#f2f2f2;
+  --font-family: 'Roboto', sans-serif;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-image: linear-gradient(120deg, rgba(83, 53, 74, 60%), rgba(144, 55, 73, 70%)), url(https://www.cyrkf1.pl/wp-content/uploads/2024/04/2024-Japonia-Suzuka-wyscig-start.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  color:#f2f2f2;
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+#main {
+  max-width: 900px;
+  color: #f2f2f2;
+  background-color: #2B2E4A;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+#title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+#img-div {
+  background-color: #1070d717;
+  padding: 15px;
+  border-radius: 8px;
+  color: #f2f2f2;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+}
+
+#image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 5px;
+}
+
+#img-caption {
+  margin-top: 10px;
+  font-style: italic;
+  color:#f2f2f2;
+}
+
+.info {
+  text-align: center;
+  margin-top: 30px;
+}
+
+#tribute-info {
+  font-size: 1.8rem;
+  color: var(--secondary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+}
+
+.opis {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  color:#f2f2f2;
+}
+
+.wiki {
+  margin-top: 120px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+#tribute-link {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+#tribute-link:hover {
+  color: #1070d7;
+}
