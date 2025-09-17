@@ -7,14 +7,14 @@ All the code in this repository is open for use and modification without my perm
 
 ### In Progress
 * Certified Full Stack Curriculum
-* Responsive Web Design
+* JavaScript Algorithms and Data Structures
 
 ### Done
 * Scientific Computing with Python
 * Data Analysis with Python
+* Responsive Web Design
 
 ### (...)
-* JavaScript Algorithms and Data Structures
 * Front End Developer Libraries
 * Data Visualization
 * Relational Database
