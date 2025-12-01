@@ -1,24 +1,37 @@
 import tensorflow as tf
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, Flatten, Dropout, MaxPooling2D
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
 import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-_URL = 'https://cdn.freecodecamp.org/project-data/cats-and-dogs/cats_and_dogs.zip'
-path_to_zip = tf.keras.utils.get_file('cats_and_dogs.zip', origin=_URL, extract=True)
-PATH = os.path.join(os.path.dirname(path_to_zip), 'cats_and_dogs')
+# Get project files
+!wget https://cdn.freecodecamp.org/project-data/cats-and-dogs/cats_and_dogs.zip
+
+!unzip cats_and_dogs.zip
+
+PATH = 'cats_and_dogs'
 
 train_dir = os.path.join(PATH, 'train')
 validation_dir = os.path.join(PATH, 'validation')
 test_dir = os.path.join(PATH, 'test')
 
+# Get number of files in each directory. The train and validation directories
+# each have the subdirecories "dogs" and "cats".
+total_train = sum([len(files) for r, d, files in os.walk(train_dir)])
+total_val = sum([len(files) for r, d, files in os.walk(validation_dir)])
+total_test = len(os.listdir(test_dir))
+
+# Variables for pre-processing and training.
 batch_size = 128
 epochs = 15
 IMG_HEIGHT = 150
 IMG_WIDTH = 150
 
+# 3
 train_image_generator = ImageDataGenerator(rescale=1./255)
 validation_image_generator = ImageDataGenerator(rescale=1./255)
 test_image_generator = ImageDataGenerator(rescale=1./255)
@@ -30,14 +43,12 @@ train_data_gen = train_image_generator.flow_from_directory(
     target_size=(IMG_HEIGHT, IMG_WIDTH),
     class_mode='binary'
 )
-
 val_data_gen = validation_image_generator.flow_from_directory(
     batch_size=batch_size,
     directory=validation_dir,
     target_size=(IMG_HEIGHT, IMG_WIDTH),
     class_mode='binary'
 )
-
 test_data_gen = test_image_generator.flow_from_directory(
     batch_size=batch_size,
     directory=PATH,
@@ -47,6 +58,7 @@ test_data_gen = test_image_generator.flow_from_directory(
     shuffle=False
 )
 
+# 4
 def plotImages(images_arr, probabilities = False):
     fig, axes = plt.subplots(len(images_arr), 1, figsize=(5,len(images_arr) * 3))
     if probabilities is False:
@@ -63,6 +75,10 @@ def plotImages(images_arr, probabilities = False):
               ax.set_title("%.2f" % ((1-probability)*100) + "% cat")
     plt.show()
 
+sample_training_images, _ = next(train_data_gen)
+plotImages(sample_training_images[:5])
+
+# 5
 train_image_generator = ImageDataGenerator(
     rescale=1./255,
     rotation_range=40,
@@ -74,14 +90,17 @@ train_image_generator = ImageDataGenerator(
     fill_mode='nearest'
 )
 
-train_data_gen = train_image_generator.flow_from_directory(
-    batch_size=batch_size,
-    directory=train_dir,
-    shuffle=True,
-    target_size=(IMG_HEIGHT, IMG_WIDTH),
-    class_mode='binary'
-)
+# 6
+train_data_gen = train_image_generator.flow_from_directory(batch_size=batch_size,
+                                                     directory=train_dir,
+                                                     target_size=(IMG_HEIGHT, IMG_WIDTH),
+                                                     class_mode='binary')
 
+augmented_images = [train_data_gen[0][0][0] for i in range(5)]
+
+plotImages(augmented_images)
+
+# 7
 model = Sequential([
     Conv2D(32, (3, 3), activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH, 3)),
     MaxPooling2D((2, 2)),
@@ -97,12 +116,17 @@ model = Sequential([
     Dense(1, activation='sigmoid')
 ])
 
+
 model.compile(optimizer='adam',
               loss='binary_crossentropy',
               metrics=['accuracy'])
 
+
+
+
 model.summary()
 
+# 8
 history = model.fit(
     x=train_data_gen,
     steps_per_epoch=len(train_data_gen),
@@ -111,8 +135,10 @@ history = model.fit(
     validation_steps=len(val_data_gen)
 )
 
+# 9
 acc = history.history['accuracy']
 val_acc = history.history['val_accuracy']
+
 loss = history.history['loss']
 val_loss = history.history['val_loss']
 
@@ -135,10 +161,10 @@ plt.show()
 probabilities = model.predict(test_data_gen)
 probabilities = probabilities.flatten()
 
-test_images, _ = next(test_data_gen) 
-
+test_images, _ = next(test_data_gen)
 plotImages(test_images[:50], probabilities[:50])
 
+# 11
 answers =  [1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0,
             1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0,
             1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1,
