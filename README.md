@@ -7,7 +7,8 @@ All the code in this repository is open for use and modification without my perm
 
 ### In Progress
 * Certified Full Stack Curriculum
-* JavaScript Algorithms and Data Structures
+* JavaScript (2025)
+* Machine Learning with Python
 
 ### Done
 * Scientific Computing with Python
