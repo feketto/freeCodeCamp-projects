@@ -8,13 +8,13 @@ All the code in this repository is open for use and modification without my perm
 ### In Progress
 * Certified Full Stack Curriculum
 * JavaScript (2025)
-* Machine Learning with Python
 
 ### Done
 * Scientific Computing with Python
 * Data Analysis with Python
 * Responsive Web Design
 * Python (2025)
+* Machine Learning with Python
 
 ### (...)
 * Front End Developer Libraries
